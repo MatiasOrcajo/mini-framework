@@ -6,5 +6,5 @@ interface Application
 {
 
 
-    public static function build();
+    public static function build(string $basepath);
 }

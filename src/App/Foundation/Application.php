@@ -3,12 +3,16 @@
 namespace App\Foundation;
 
 use App\Contracts\Foundation\Application as Contract;
+use App\Http\Router;
 
 class Application implements Contract
 {
-    public static function build()
+    public static function build(string $basepath)
     {
-        var_dump("Llegaste a Application");
-        die();
+        Router::getInstance()->load($basepath);
+//        echo '<pre>';
+//        print_r(Route::$getRoutesBag);
+//        print_r(Route::$postRoutesBag);
+//        echo '</pre>';
     }
 }

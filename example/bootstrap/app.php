@@ -2,4 +2,4 @@
 
 use App\Foundation\Application;
 
-return Application::build();
+return Application::build(dirname(__DIR__));
