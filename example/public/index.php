@@ -2,6 +2,8 @@
 // Esto simula el index.php de una aplicación que usa tu framework
 require __DIR__ . '/../../vendor/autoload.php';
 
+require_once __DIR__.'/../bootstrap/app.php';
+
 use App\Foundation\Router;
 
 $router = new Router();
