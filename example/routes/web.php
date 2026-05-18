@@ -2,7 +2,7 @@
 
 use App\Http\Router;
 
-$router = Router::getInstance()
+$router = Router::getInstance();
 
 $router->get('/', function(){
     return 'Hola desde web.php';
