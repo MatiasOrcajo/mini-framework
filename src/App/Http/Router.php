@@ -7,20 +7,20 @@ use App\Constructors\Singleton;
 
 class Router extends Singleton implements Contract
 {
-    public static $getRoutesBag = [];
-    public static $postRoutesBag = [];
+    public static array $getRoutesBag = [];
+    public static array $postRoutesBag = [];
 
     public static function get(string $path, callable $handler): void
     {
-        array_push(self::$getRoutesBag, ['route' => $path, 'handler' => $handler]);
+        self::$getRoutesBag[] = ['route' => $path, 'method' => 'GET', 'handler' => $handler];
     }
 
     public static function post(string $path, callable $handler): void
     {
-        array_push(self::$postRoutesBag, ['route' => $path, 'handler' => $handler]);
+        self::$postRoutesBag[] = ['route' => $path, 'method' => 'POST', 'handler' => $handler];
     }
 
-    public function load(string $basepath): void
+    public static function loadRoutes(string $basepath): void
     {
         require $basepath.'/routes/web.php';
     }

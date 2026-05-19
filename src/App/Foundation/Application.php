@@ -2,17 +2,33 @@
 
 namespace App\Foundation;
 
+use App\Constructors\Singleton;
 use App\Contracts\Foundation\Application as Contract;
 use App\Http\Router;
 
-class Application implements Contract
+class Application extends Singleton implements Contract
 {
-    public static function build(string $basepath)
+    public string $basepath;
+
+    protected function __construct(string $basepath)
     {
-        Router::getInstance()->load($basepath);
-//        echo '<pre>';
-//        print_r(Route::$getRoutesBag);
-//        print_r(Route::$postRoutesBag);
-//        echo '</pre>';
+        parent::__construct();
+        $this->basepath = $basepath;
+    }
+
+    public static function build(string $basepath): self
+    {
+        return self::getInstance()
+                ->withRoutes();
+    }
+
+    private function withRoutes(): void
+    {
+        Router::getInstance()::loadRoutes($this->basepath);
+    }
+
+    public function handleRequest()
+    {
+
     }
 }
