@@ -9,6 +9,7 @@ class Router extends Singleton implements Contract
 {
     public static array $getRoutesBag = [];
     public static array $postRoutesBag = [];
+    public static array $routes = [];
 
     public static function get(string $path, callable $handler): void
     {
@@ -20,8 +21,9 @@ class Router extends Singleton implements Contract
         self::$postRoutesBag[] = ['route' => $path, 'method' => 'POST', 'handler' => $handler];
     }
 
-    public static function loadRoutes(string $basepath): void
+    public static function loadRoutes(string $basepath): array
     {
         require $basepath.'/routes/web.php';
+        return array(self::$getRoutesBag, self::$postRoutesBag);
     }
 }

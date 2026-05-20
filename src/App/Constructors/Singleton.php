@@ -11,12 +11,12 @@ class Singleton
 
     }
 
-    public static function getInstance()
+    public static function getInstance(mixed $constructor = null)
     {
         $subclass = static::class;
 
         if(!isset(self::$instances[$subclass])){
-            self::$instances[$subclass] = new static();
+            self::$instances[$subclass] = new static($constructor);
         }
 
         return self::$instances[$subclass];

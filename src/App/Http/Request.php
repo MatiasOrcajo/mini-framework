@@ -9,31 +9,57 @@ class Request extends Singleton
 
     public string $method;
     public string $uri;
-    public array $query;
-    public array $server;
+    public array $formDataBag;
+    public array $queryBag;
+    public array $serverBag;
 
-    public static function capture()
+    protected function __construct()
     {
-
+        parent::__construct();
+        $this->setBags(
+            $this->method(),
+            $this->uri(),
+            $this->query(),
+            $this->formData(),
+            $this->server());
     }
 
-    private static function processGet()
+    public static function capture(): self
     {
-
+        return self::getInstance();
     }
 
-    private static function method(): string
+    private function setBags(string $method, string $uri, array $query, array $formData, array $server)
+    {
+        $this->method = $method;
+        $this->uri = $uri;
+        $this->queryBag = $query;
+        $this->formDataBag = $formData;
+        $this->serverBag = $server;
+    }
+
+    private function method(): string
     {
         return $_SERVER['REQUEST_METHOD'];
     }
 
-    private static function uri(): string
+    private function uri(): string
     {
-        return $_SERVER['PHP_SELF'];
+        return $_SERVER['REQUEST_URI'];
     }
 
     private function query(): array
     {
         return $_GET;
+    }
+
+    private function formData(): array
+    {
+        return $_POST;
+    }
+
+    private function server(): array
+    {
+        return $_SERVER;
     }
 }

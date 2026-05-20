@@ -8,5 +8,5 @@ interface Router
 
     public static function post(string $path, callable $handler): void;
 
-    public static function loadRoutes(string $basepath): void;
+    public static function loadRoutes(string $basepath): array;
 }
