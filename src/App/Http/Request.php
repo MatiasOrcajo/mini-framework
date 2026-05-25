@@ -3,8 +3,9 @@
 namespace App\Http;
 
 use App\Constructors\Singleton;
+use App\Contracts\Http\Request as Contract;
 
-class Request extends Singleton
+class Request extends Singleton implements Contract
 {
 
     public string $method;
