@@ -10,9 +10,10 @@ class Request extends Singleton implements Contract
 
     public string $method;
     public string $uri;
-    public array $formDataBag;
-    public array $queryBag;
-    public array $serverBag;
+    public array $data;
+    public array $query;
+    public array $server;
+    public array $middlewares;
 
     protected function __construct()
     {
@@ -34,9 +35,9 @@ class Request extends Singleton implements Contract
     {
         $this->method = $method;
         $this->uri = $uri;
-        $this->queryBag = $query;
-        $this->formDataBag = $formData;
-        $this->serverBag = $server;
+        $this->query = $query;
+        $this->data = $formData;
+        $this->server = $server;
     }
 
     private function method(): string

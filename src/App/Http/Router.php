@@ -9,21 +9,35 @@ class Router extends Singleton implements Contract
 {
     public static array $getRoutesBag = [];
     public static array $postRoutesBag = [];
-    public static array $routes = [];
+    private static array $activeMiddlewares = [];
 
     public static function get(string $path, callable $handler): void
     {
-        self::$getRoutesBag[] = ['route' => $path, 'method' => 'GET', 'handler' => $handler];
+        self::$getRoutesBag[] = [
+            'route' => $path,
+            'method' => 'GET',
+            'handler' => $handler,
+            'middleware' => self::$activeMiddlewares];
     }
 
     public static function post(string $path, callable $handler): void
     {
-        self::$postRoutesBag[] = ['route' => $path, 'method' => 'POST', 'handler' => $handler];
+        self::$postRoutesBag[] = [
+            'route' => $path,
+            'method' => 'POST',
+            'handler' => $handler,
+            'middleware' => self::$activeMiddlewares];
     }
 
     public static function loadRoutes(string $basepath): array
     {
         require $basepath.'/routes/web.php';
         return array(self::$getRoutesBag, self::$postRoutesBag);
+    }
+
+    public function middleware(array $middlewares, callable $callback)
+    {
+        self::$activeMiddlewares = $middlewares;
+        call_user_func($callback);
     }
 }
