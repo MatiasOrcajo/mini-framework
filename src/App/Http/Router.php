@@ -35,7 +35,7 @@ class Router extends Singleton implements Contract
         return array(self::$getRoutesBag, self::$postRoutesBag);
     }
 
-    public function middleware(array $middlewares, callable $callback)
+    public function middleware(array $middlewares, callable $callback): void
     {
         self::$activeMiddlewares = $middlewares;
         call_user_func($callback);
