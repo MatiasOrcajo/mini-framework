@@ -32,6 +32,6 @@ class Application extends Singleton implements Contract
 
     public function handleRequest(Request $request)
     {
-        dd($request);
+        dd($this->routes);
     }
 }

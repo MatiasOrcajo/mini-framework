@@ -32,7 +32,7 @@ class Router extends Singleton implements Contract
     public static function loadRoutes(string $basepath): array
     {
         require $basepath.'/routes/web.php';
-        return array(self::$getRoutesBag, self::$postRoutesBag);
+        return array("GET" => self::$getRoutesBag, "POST" => self::$postRoutesBag);
     }
 
     public function middleware(array $middlewares, callable $callback): void
